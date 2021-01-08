@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.weekendsoft.zerodhascraper.model.PortfolioEntry;
+import org.weekendsoft.zerodhascraper.model.CoinEntry;
 
 class CoinPortfolioDownloadTest {
 
@@ -17,7 +17,7 @@ class CoinPortfolioDownloadTest {
 		String pin = System.getProperty("zerodha_pin");
 		
 		CoinPortfolioDownload util = new CoinPortfolioDownload(username, password, pin);
-		List<PortfolioEntry> list = util.downloadCoinPortfolio();
+		List<CoinEntry> list = util.downloadCoinPortfolio();
 		
 		assertTrue(list.size() > 0);
 	}

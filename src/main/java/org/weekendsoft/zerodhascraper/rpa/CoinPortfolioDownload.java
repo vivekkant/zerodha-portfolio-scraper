@@ -4,22 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.weekendsoft.zerodhascraper.model.PortfolioEntry;
+import org.weekendsoft.zerodhascraper.model.CoinEntry;
 import org.weekendsoft.zerodhascraper.util.WebDriverUtils;
 
 public class CoinPortfolioDownload extends AbstractZerodhaRPA {
+	
+	private static final Logger LOG = Logger.getLogger(CoinPortfolioDownload.class);
 
 	public CoinPortfolioDownload(String username, String password, String pin) {
 		super(username, password, pin);
 	}
 	
-	public List<PortfolioEntry> downloadCoinPortfolio() {
+	public List<CoinEntry> downloadCoinPortfolio() {
 		
-		List<PortfolioEntry> list = new ArrayList<PortfolioEntry>();
+		List<CoinEntry> list = new ArrayList<CoinEntry>();
 		
 		System.setProperty("webdriver.chrome.driver", "/Users/vivekkant/util/bin/chromedriver");
 	    WebDriver driver = new ChromeDriver();
@@ -41,7 +44,7 @@ public class CoinPortfolioDownload extends AbstractZerodhaRPA {
 			List<WebElement> rows = driver.findElements(By.xpath("/html/body/div[1]/div/div[2]/div/div[5]/div[2]/table/tbody"));
 			for (WebElement row : rows) {
 				
-				PortfolioEntry entry = new PortfolioEntry();
+				CoinEntry entry = new CoinEntry();
 				
 				List<WebElement> cols = row.findElements(By.tagName("td"));
 				
@@ -68,13 +71,15 @@ public class CoinPortfolioDownload extends AbstractZerodhaRPA {
 				
 				list.add(entry);
 				
-				System.out.println(entry);
+				LOG.debug("Parsed: " + entry);
 			}
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		} finally {
-			driver.quit();
+			driver.close();
 		}
+		
+		driver.quit();
 		
 		return list;
 	}

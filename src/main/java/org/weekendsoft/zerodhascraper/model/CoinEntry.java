@@ -1,6 +1,6 @@
 package org.weekendsoft.zerodhascraper.model;
 
-public class PortfolioEntry {
+public class CoinEntry {
 	
 	private String name;
 	private double unit;
