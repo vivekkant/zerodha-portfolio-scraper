@@ -34,8 +34,10 @@ public class CoinPortfolioDownload extends AbstractZerodhaRPA {
 			
 			loginIntoKite();
 			
-			boolean pending = driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div/div[5]/div[2]")).getText().toLowerCase().contains("portfolio");
-			int divSequence = pending? 3 : 2;
+			List<WebElement> pendingSection = driver.findElements(By.className("pending-order-section"));
+			boolean pending = pendingSection.size() > 0;
+			
+			int divSequence = pending ? 3 : 2;
 						
 			List<WebElement> rows = driver.findElements(By.xpath("/html/body/div[1]/div/div[2]/div/div[5]/div[" + divSequence + "]/table/tbody"));
 			for (WebElement row : rows) {

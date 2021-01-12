@@ -1,11 +1,15 @@
 package org.weekendsoft.zerodhascraper.rpa;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AbstractZerodhaRPA {
 	
@@ -49,12 +53,18 @@ public class AbstractZerodhaRPA {
 		
 		LOG.debug("Trying to Log in");
 		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		
 		driver.findElement(By.xpath("//*[@id=\"userid\"]")).sendKeys(this.username);
 		driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(this.password);
-		driver.findElement(By.xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[4]/button")).click();
+		WebElement authBtn = driver.findElement(By.xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[4]/button"));
+		wait.until(ExpectedConditions.elementToBeClickable(authBtn));
+		authBtn.click();
 		
 		driver.findElement(By.xpath("//*[@id=\"pin\"]")).sendKeys(this.pin);
-		driver.findElement(By.xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[3]/button")).click();
+		WebElement pinBtn = driver.findElement(By.xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[3]/button"));
+		wait.until(ExpectedConditions.elementToBeClickable(pinBtn));
+		pinBtn.click();
 		
 		LOG.debug("Log in completed");
 	}

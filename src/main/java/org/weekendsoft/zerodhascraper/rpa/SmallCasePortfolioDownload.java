@@ -1,5 +1,6 @@
 package org.weekendsoft.zerodhascraper.rpa;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -44,7 +45,7 @@ public class SmallCasePortfolioDownload extends AbstractZerodhaRPA {
 			WebElement currentValueElement = driver.findElement(By.xpath(("//*[@id=\"smallcase-platform\"]/div[4]/div/div[1]/div/div[2]/div[1]/div[2]")));
 			LOG.debug("Waiting value:" + currentValueElement.getText() + ":");
 			
-			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(currentValueElement,"—")));
 			
 			LOG.debug("After wait value:" + currentValueElement.getText() + ":");
