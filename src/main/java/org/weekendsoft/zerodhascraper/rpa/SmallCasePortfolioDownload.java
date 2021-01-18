@@ -62,7 +62,7 @@ public class SmallCasePortfolioDownload extends AbstractZerodhaRPA {
 			
 		} catch (Exception e) {
 			
-			e.printStackTrace();
+			LOG.error("Unable to download", e);
 		}
 		
 		return entry;

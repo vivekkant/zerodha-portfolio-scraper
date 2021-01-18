@@ -80,7 +80,7 @@ public class CoinPortfolioDownload extends AbstractZerodhaRPA {
 			list.add(WebDriverUtils.getCashEntry(cash));
 			
 		} catch (Exception e) {
-			e.printStackTrace(System.out);
+			LOG.error("Error while downloading ", e);
 		} finally {
 		}
 		
