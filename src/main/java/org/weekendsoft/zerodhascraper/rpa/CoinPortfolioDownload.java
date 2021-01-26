@@ -72,7 +72,7 @@ public class CoinPortfolioDownload extends AbstractZerodhaRPA {
 				LOG.debug("Parsed: " + entry);
 			}
 			
-			driver.navigate().to("https://console.zerodha.com/users/login");
+			driver.navigate().to("https://console.zerodha.com/kite/login");
 			
 			double cash = getCashHolding(driver);
 			LOG.debug("Cash holding: " + cash);
