@@ -2,6 +2,7 @@ package org.weekendsoft.zerodhascraper.rpa;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -33,7 +34,16 @@ public class SmallCasePortfolioDownload extends AbstractZerodhaRPA {
 			driver.navigate().to("https://www.smallcase.com/");
 			
 			driver.findElement(By.xpath("//*[@id=\"__next\"]/div[1]/header/nav/div[2]/div[1]/button")).click();
-			driver.findElement(By.xpath("//*[@id=\"__next\"]/div[5]/div[2]/div/div[1]/div[2]/div/div/div/div/div[1]/a[8]")).click();
+			
+			List<WebElement> iconList = driver.findElements(By.xpath("//*[@id=\"__next\"]/div[5]/div[2]/div/div[1]/div[2]/div/div/div/div[1]/a"));
+			for(WebElement zerodhaIcon : iconList) {
+				
+				String href = zerodhaIcon.getAttribute("href");
+				if (href.startsWith("https://kite.zerodha.com")) {
+					zerodhaIcon.click();
+					break;
+				}
+			}
 			
 			ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
 			driver.switchTo().window(tabs2.get(0));
