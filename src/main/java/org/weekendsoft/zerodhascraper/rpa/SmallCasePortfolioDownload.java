@@ -52,7 +52,7 @@ public class SmallCasePortfolioDownload extends AbstractZerodhaRPA {
 			
 			loginIntoKite();
 			
-			WebElement currentValueElement = driver.findElement(By.xpath(("//*[@id=\"smallcase-platform\"]/div[4]/div/div[1]/div/div[2]/div[1]/div[2]")));
+			WebElement currentValueElement = driver.findElement(By.xpath(("//*[@id=\"smallcase-platform\"]/div[5]/div/div[1]/div/div[2]/div[1]/div[2]")));
 			LOG.debug("Waiting value:" + currentValueElement.getText() + ":");
 			
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -60,8 +60,8 @@ public class SmallCasePortfolioDownload extends AbstractZerodhaRPA {
 			
 			LOG.debug("After wait value:" + currentValueElement.getText() + ":");
 			
-			String current = driver.findElement(By.xpath("//*[@id=\"smallcase-platform\"]/div[4]/div/div[1]/div/div[2]/div[1]/div[2]")).getText();
-			String invested = driver.findElement(By.xpath("//*[@id=\"smallcase-platform\"]/div[4]/div/div[1]/div/div[2]/div[2]/div[2]")).getText();
+			String current = driver.findElement(By.xpath("//*[@id=\"smallcase-platform\"]/div[5]/div/div[1]/div/div[2]/div[1]/div[2]")).getText();
+			String invested = driver.findElement(By.xpath("//*[@id=\"smallcase-platform\"]/div[5]/div/div[1]/div/div[2]/div[2]/div[2]")).getText();
 
 			LOG.debug("Smallcase current value:" + current + ":");
 			LOG.debug("Smallcase invested value:" + invested + ":");
