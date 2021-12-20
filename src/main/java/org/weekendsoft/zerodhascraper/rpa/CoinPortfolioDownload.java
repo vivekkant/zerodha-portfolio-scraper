@@ -30,42 +30,41 @@ public class CoinPortfolioDownload extends AbstractZerodhaRPA {
 		try {
 			driver.navigate().to("https://coin.zerodha.com/");
 			
-			driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[1]/div/div/div/header/ul/li[1]/a")).click();
+			driver.findElement(By.xpath("//*[@id=\"home\"]/div[1]/div/div/div[2]/ul/li[5]/a")).click();
 			
 			loginIntoKite();
 			
-			List<WebElement> pendingSection = driver.findElements(By.className("pending-order-section"));
-			boolean pending = pendingSection.size() > 0;
-			
-			int divSequence = pending ? 3 : 2;
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div[1]/div/div[1]/a")).click();
+			driver.findElement(By.xpath("//*[@id=\"instrument-dropdown\"]/li[2]/a")).click();
 						
-			List<WebElement> rows = driver.findElements(By.xpath("/html/body/div[1]/div/div[2]/div/div[5]/div[" + divSequence + "]/table/tbody"));
+			List<WebElement> rows = driver.findElements(By.xpath("//*[@id=\"app\"]/div[2]/div[2]/div/div/div/ul/li"));	
+			
 			for (WebElement row : rows) {
 				
 				CoinEntry entry = new CoinEntry();
 				
-				List<WebElement> cols = row.findElements(By.tagName("td"));
+				WebElement topDiv = row.findElement(By.tagName("div"));
+				if(topDiv.getAttribute("class").contains("holdings-header")) {
+					continue;
+				}
 				
-				String fundName = cols.get(0).findElement(By.tagName("a")).getText();
-				entry.setName(fundName);
+				WebElement name = topDiv.findElement(By.xpath(".//div/div/div[1]/div/div[2]/div[1]"));
+				entry.setName(name.getText());
 				
-				String units = cols.get(1).getText();
-				entry.setUnit(WebDriverUtils.getValueFromText(units));
+				entry.setNav(-1.0d);
+				entry.setUnit(-1.0d);
 				
-				String nav = WebDriverUtils.getTextNode(cols.get(3).findElement(By.tagName("span")));
-				entry.setNav(WebDriverUtils.getValueFromText(nav));
+				WebElement investment = topDiv.findElement(By.xpath(".//div/div/div[2]/span"));
+				entry.setInvestment(WebDriverUtils.getValueFromText(investment.getText()));
 				
-				String investment = cols.get(4).findElement(By.tagName("span")).getText();
-				entry.setInvestment(WebDriverUtils.getValueFromText(investment));
+				WebElement current = topDiv.findElement(By.xpath(".//div/div/div[3]/span"));
+				entry.setCurrent(WebDriverUtils.getValueFromText(current.getText()));
 				
-				String current = cols.get(5).findElement(By.tagName("span")).getText();
-				entry.setCurrent(WebDriverUtils.getValueFromText(current));
+				double pnl = entry.getCurrent() - entry.getInvestment();
+				entry.setGain(pnl);
 				
-				String pnl = WebDriverUtils.getTextNode(cols.get(6).findElement(By.tagName("span")));
-				entry.setGain(WebDriverUtils.getValueFromText(pnl));
-				
-				String pnlper = cols.get(6).findElement(By.tagName("span")).findElement(By.tagName("div")).getText();
-				entry.setGainper(WebDriverUtils.getValueFromText(pnlper));
+				double pnlper = (pnl * 100) / entry.getInvestment();
+				entry.setGainper(pnlper);
 				
 				list.add(entry);
 				
