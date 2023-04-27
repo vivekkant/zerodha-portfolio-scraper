@@ -33,7 +33,7 @@ public class SmallCasePortfolioDownload extends AbstractZerodhaRPA {
 	    	
 			driver.navigate().to("https://www.smallcase.com/");
 			
-			WebElement loginBtn = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[1]/header/nav/div/div[2]/button"));
+			WebElement loginBtn = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[1]/header/nav/div/div[4]/button"));
 			loginBtn.click();
 			
 			List<WebElement> iconList = driver.findElements(By.xpath("//*[@id=\"__next\"]/div[5]/div[2]/div/div[1]/div[2]/div/div/div/div/div[1]/a"));

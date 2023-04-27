@@ -19,7 +19,7 @@ public class AbstractZerodhaRPA {
 	protected String password;
 	protected String pin;
 	
-	WebDriver driver = null;
+	public WebDriver driver = null;
 
 	public AbstractZerodhaRPA(String username, String password, String pin, WebDriver driver) {
 		
@@ -57,14 +57,21 @@ public class AbstractZerodhaRPA {
 		
 		driver.findElement(By.xpath("//*[@id=\"userid\"]")).sendKeys(this.username);
 		driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(this.password);
-		WebElement authBtn = driver.findElement(By.xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[4]/button"));
+		WebElement authBtn = driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div[1]/div/div/div[2]/form/div[4]/button"));
 		wait.until(ExpectedConditions.elementToBeClickable(authBtn));
 		authBtn.click();
 		
-		driver.findElement(By.xpath("//*[@id=\"pin\"]")).sendKeys(this.pin);
-		WebElement pinBtn = driver.findElement(By.xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[3]/button"));
-		wait.until(ExpectedConditions.elementToBeClickable(pinBtn));
-		pinBtn.click();
+		WebElement pinField = driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div[1]/div/div/div[2]/form/div[2]/input"));
+//		for (char c : this.pin.toCharArray()) {
+//		    String s = new StringBuilder().append(c).toString();
+//		    System.out.println("pin=" + s);
+//		    pinField.sendKeys(s);
+//		    Thread.sleep(1000);
+//		}
+		pinField.sendKeys(this.pin);
+//		WebElement pinBtn = driver.findElement(By.xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[3]/button"));
+//		wait.until(ExpectedConditions.elementToBeClickable(pinBtn));
+//		pinBtn.click();
 		
 		LOG.debug("Log in completed");
 	}
