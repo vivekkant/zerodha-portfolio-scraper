@@ -3,7 +3,8 @@ package org.weekendsoft.zerodhascraper.rpa;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +13,7 @@ import org.weekendsoft.zerodhascraper.util.WebDriverUtils;
 
 public class CoinPortfolioDownload extends AbstractZerodhaRPA {
 	
-	private static final Logger LOG = Logger.getLogger(CoinPortfolioDownload.class);
+	private static final Logger LOG = LogManager.getLogger(CoinPortfolioDownload.class);
 
 	public CoinPortfolioDownload(String username, String password, String pin) {
 		super(username, password, pin);
